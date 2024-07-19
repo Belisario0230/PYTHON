@@ -173,32 +173,3 @@ for i in range(len(matrix_biodimmensional)):
     dicc_inicializado["row" + str(i)] = matrix_biodimmensional[i]
 
 print(dicc_inicializado)
-
-# "Ayuda a Pyratilla a crear un diccionario llamado info_pyrates que contenga para cada miembro 
-# de la tripulación de los Pyrates un diccionario con la edad (age) y la ocupación (occupation) 
-# de cada uno."
-
-#Solucion 1#
-info_pyrates = [
-    {"name" : "pyratilla", "age" : 17, "occupation" : "Capitan del barco"},
-    {"name" : "pyo", "age" : 2, "occupation" : "Loro del barco"},
-    {"name" : "pyerce", "age" : 16, "occupation" : "Navegante"},
-    {"name" : "pym", "age" : 16, "occupation" : "Timonel"}
-]
-
-#Solucion 2#
-info_pyrates = {"Pyratilla": {"age": 17, "occupation": "capitán"},
-                "Pyo": {"age": 2, "occupation": "loro"},
-                "Pyerce": {"age": 16, "occupation": "navegante"},
-                "Pym": {"age": 16, "occupation": "timonel"}}
-
-# Ayuda a Pyratilla a mostrar los datos de cada uno de los miembros de su tripulación como se muestra 
-# a continuación: Pyratilla es el capitán del barco y tiene 17 años
-
-info_pyrates = {"Pyratilla": {"age": 17, "occupation": "capitán"},
-                "Pyo": {"age": 2, "occupation": "loro"},
-                "Pyerce": {"age": 16, "occupation": "navegante"},
-                "Pym": {"age": 16, "occupation": "timonel"}}
-
-for pirata in info_pyrates:
-    print("{} es el {} del barco y tiene {} años".format(pirata,info_pyrates[pirata]["occupation"], info_pyrates[pirata]["age"] ))
