@@ -121,6 +121,49 @@ print(df.iloc[:, [0, 1]])
 
 print(df.iloc[:, 0:2])
 
+
+#ejercicio#
+def is_palindrome(word): 
+  """
+  Devuelve si la palabra word es palíndroma.
+  Args:
+    word: Palabra en formato string
+  Returns:
+    isPalindrome: Booleano
+  """
+  word = word.lower()
+  l = []
+  isPalindrome = True
+  for c in word: 
+    l.append(c) 
+  n = len(l)
+  for i in range(int(n / 2)):
+    if l[i] != l[n - (i + 1)]: 
+      isPalindrome = False
+  return isPalindrome
+
+words = ["sol", "ala", "cama", "duro", "bueno", "kayak", "marea", "rotor", "misterio", "acurruca"]
+data = {"word": words,
+        "length": map(len, words),
+        "start": map(lambda w: w[0], words),
+        "end": map(lambda w: w[-1], words),
+        "isPalindrome": map(is_palindrome, words)}
+
+import pandas as pd
+words = pd.DataFrame(data)
+words = words.set_index("word")
+words.index.names = [None]
+
+words.head()
+
+for col in list(words):
+  print("=== {} ===".format(col.upper()))
+  print(words[col], end = "\n\n\n")
+
+words2 = words.iloc[:, 1:]
+words2.head()
+
+
 #FILAS#
 #Dado un dataframe, podemos seleccionar una fila en particular de diversas formas:
 
