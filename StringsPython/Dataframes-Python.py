@@ -41,3 +41,89 @@ print("")
 print("")
 df5 = pd.DataFrame(data, columns = ["x", "y"])
 print(df5)
+
+# Para crear dataframe con el metodo from_dict()#
+d = {"a": [1, 2, 3],
+     "b": [4, 5, 6],
+     "b1": [7, 8, 9]}
+
+df = pd.DataFrame.from_dict(d)
+print(df)
+
+# Para crear dataframe con el metodo orient #
+d = {"fila1": [1, 4, 7],
+     "fila2": [2, 5, 8],
+     "fila3": [3, 6, 9]}
+
+df = pd.DataFrame.from_dict(d, orient = "index", columns = ["A", "B", "C"])
+print(df)
+
+#metodo shape#
+df.shape
+
+nrows = df.shape[0]
+ncols = df.shape[1]
+print("El número de filas de df es", nrows)
+print("El número de columnas de df es", ncols)
+
+#metodo size#
+df.size
+
+df.shape[0] * df.shape[1] == df.size
+
+#metodo ndim #
+df.ndim
+
+#SUBDATAFRAMES#
+#COLUMNAS#
+
+# Dado un dataframe, podemos seleccionar una columna en particular de diversas formas:
+
+# Indicando el nombre de la columna entre claudators, []
+# Con el método .columns[]
+# Con el método .loc[] (por nombre o etiqueta)
+# Con el método .iloc[] (por posición)
+
+fdata = {"Name": ["Alicia", "Bill", "Carlos", "Diana"],
+        "Age": [22, 28, 19, 34],
+        "Pet": [True, False, False, True],
+        "Height": [157, 190, 175, 164],
+        "Birthday": ["Mayo", "Junio", "Agosto", "Diciembre"]}
+df = pd.DataFrame(data = fdata, index = ["obs1", "obs2", "obs3", "obs4"])
+
+# Seleccionamos la columna Birthday por nombre
+print(df["Birthday"])
+
+# Seleccionamos la columna Birthday con el método .columns[]
+print(df[df.columns[4]])
+
+# Seleccionamos la columna Birthday con el método .loc[]
+print(df.loc[:, "Birthday"])
+
+ #Seleccionamos la columna Birthday con el método .iloc[]
+print(df.iloc[:, 4])
+
+# Seleccionamos las columnas Name y Age por nombre
+print(df[["Name", "Age"]])
+
+# Seleccionamos las columnas Name y Age con el método .columns[]
+print(df[df.columns[[0, 1]]])
+
+print(df[df.columns[0:2]])
+
+# Seleccionamos las columnas Name y Age con el método .loc[]
+print(df.loc[:, ["Name", "Age"]])
+
+print(df.loc[:, "Name":"Age"])
+
+# Seleccionamos las columnas Name y Age con el método .iloc[]
+print(df.iloc[:, [0, 1]])
+
+print(df.iloc[:, 0:2])
+
+#FILAS#
+#Dado un dataframe, podemos seleccionar una fila en particular de diversas formas:
+
+#Con el método .loc[] (por nombre o etiqueta)
+#Con el método .iloc[] (por posición)
+
