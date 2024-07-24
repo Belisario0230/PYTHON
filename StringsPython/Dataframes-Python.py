@@ -170,3 +170,158 @@ words2.head()
 #Con el método .loc[] (por nombre o etiqueta)
 #Con el método .iloc[] (por posición)
 
+# Seleccionamos la edad de la segunda observación con el método .loc[]
+print("Solo imprime las filas indicadas")
+print(df.loc["obs1", "Age"])
+
+# Seleccionamos la edad de la segunda observación con el método .iloc[]
+print(df.iloc[1, 1])
+
+# Seleccionamos la segunda y tercera fila y las columnas nombre y cumpleaños
+# Con el método .loc[]
+print(df.loc["obs2":"obs3", ["Name", "Birthday"]])
+
+# Con el método .iloc[]
+print(df.iloc[1:3, [0, 4]])
+
+#FILAS Y COLUMNAS COMBINADAS DATAFRAMES#
+#Para seleccionar un elemento en concreto, hay que indicar la fila y la columna y lo podemos hacer de dos formas:
+
+#Con el método .loc[] (por nombre o etiqueta)
+#Con el método .iloc[] (por índice)
+
+# Seleccionamos la edad de la segunda observación con el método .loc[]
+print(df.loc["obs2", "Age"])
+
+# Seleccionamos la edad de la segunda observación con el método .iloc[]
+print(df.iloc[1, 1])
+
+# Seleccionamos la segunda y tercera fila y las columnas nombre y cumpleaños
+# Con el método .loc[]
+print("Imprime las filas obs2 y obs3 y las columnas name y birthday")
+print(df.loc["obs2":"obs3", ["Name", "Birthday"]])
+
+# Con el método .iloc[]
+print(df.iloc[1:3, [0, 4]])
+
+import pandas as pd
+
+# Datos iniciales
+dfruta = {"fruit": ["sandía", "melón", "manzana", "cerezas", "plátano", "pera", "melocotón", "fresas"],
+          "count": [1, 1, 6, 10, 3, 6, 4, 10]}
+
+print("METODOS DE DATAFRAMES")
+
+# Creación del DataFrame
+dfrutas = pd.DataFrame(dfruta)
+print("DataFrame inicial:")
+print(dfrutas)
+
+# METODO HEAD MUESTRA LOS PRIMEROS ELEMENTOS
+print("\nMétodo head (primeros 4 elementos):")
+print(dfrutas.head(4))
+
+# METODO TAIL MUESTRA LOS ULTIMOS ELEMENTOS
+print("\nMétodo tail (últimos 3 elementos):")
+print(dfrutas.tail(3))
+
+# METODO COPY aquí sería una referencia, es decir, cambia al DataFrame original
+fruits = dfrutas
+fruits.iloc[6, 0] = "naranja"
+print("\nDataFrame después de cambiar 'melocotón' a 'naranja':")
+print(fruits)
+
+# METODO COPY MUESTRA UNA COPIA LITERAL DF
+fruits_copy = dfrutas.copy()
+print("\nCopia del DataFrame original:")
+print(fruits_copy)
+
+# METODO RENOMBRE LAS COLUMNAS DF (AQUÍ SOLO CREA UNA VARIABLE PERO NO CAMBIA NADA)
+df_renamed = dfrutas.rename(columns={"fruit": "fruta", "count": "cantidad"})
+print("\nDataFrame con columnas renombradas (sin inplace):")
+print(df_renamed)
+
+# Cambiamos el nombre de las columnas al DataFrame original
+dfrutas.rename(columns={"fruit": "fruta", "count": "cantidad"}, inplace=True)
+print("\nDataFrame con columnas renombradas (con inplace):")
+print(dfrutas)
+
+# Cambiamos el nombre de las FILAS al DataFrame original PERO AQUÍ SOLO SE CREA PERO NO CAMBIA NADA
+df_renamed_rows = dfrutas.rename(index={0: "obs1", 1: "obs2", 7: "obs8"})
+print("\nDataFrame con filas renombradas (sin inplace):")
+print(df_renamed_rows)
+
+# Cambiamos el nombre de las filas al DataFrame original
+dfrutas.rename(index={0: "obs1", 1: "obs2", 7: "obs8"}, inplace=True)
+print("\nDataFrame con filas renombradas (con inplace):")
+print(dfrutas)
+
+# METODO COLUMNS MUESTRA LAS COLUMNAS
+print("\nColumnas del DataFrame:")
+print(dfrutas.columns)
+
+# Cambiamos el nombre de las columnas directamente
+dfrutas.columns = ["FRUTA", "CANTIDAD"]
+print("\nDataFrame con columnas renombradas directamente:")
+print(dfrutas)
+
+# METODO INSERT INSERTA UNA POSICION CUALQUIERA DATAFRAME
+dfrutas.insert(loc=2, column="PRECIO", value=[2.50, 2.00, 0.35, 0.10, 0.35, 0.20, 0.15, 0.05])
+print("\nDataFrame después de insertar la columna 'PRECIO':")
+print(dfrutas)
+
+# METODO .POP ELIMINA COLUMNA INDICADA POR PARAMETRO
+# Añadimos una columna 'COLOR' para demostrar el método .pop
+dfrutas["COLOR"] = ["rojo", "verde", "rojo", "rojo", "amarillo", "verde", "naranja", "rojo"]
+column_popped = dfrutas.pop("COLOR")
+print("\nDataFrame después de eliminar la columna 'COLOR':")
+print(dfrutas)
+print("\nColumna 'COLOR' eliminada:")
+print(column_popped)
+
+# Volvemos a añadir la columna recientemente eliminada al final del DataFrame
+dfrutas["COLOR"] = column_popped
+print("\nDataFrame después de volver a añadir la columna 'COLOR':")
+print(dfrutas)
+
+# METODO RANK DESDE LA PRIMERA HASTA LA ULTIMA DE UNA COLUMNA ORDENA ASCENDENTE
+dfrutas["RANKING_FRUTA"] = dfrutas["FRUTA"].rank()
+print("\nDataFrame con ranking ascendente de 'FRUTA':")
+print(dfrutas)
+
+# ESTE METODO RANK ORDENA DESCENDENTE
+dfrutas["RANKING_PRECIO"] = dfrutas["PRECIO"].rank(ascending=False)
+print("\nDataFrame con ranking descendente de 'PRECIO':")
+print(dfrutas)
+
+# El método .nunique() devuelve el conteo de cuántos valores únicos hay en cada columna
+print("\nNúmero de valores únicos en cada columna:")
+print(dfrutas.nunique())
+
+# Dada una columna de un DataFrame, el método .unique() devuelve un array con los valores únicos de dicha columna
+print("\nValores únicos en la columna 'COLOR':")
+print(dfrutas["COLOR"].unique())
+print("\nValores únicos en la columna 'PRECIO':")
+print(dfrutas["PRECIO"].unique())
+
+# El método .duplicated() nos ayuda a analizar los valores duplicados
+bool_duplicated = dfrutas["CANTIDAD"].duplicated(keep=False)
+print("\nFilas con valores duplicados en 'CANTIDAD':")
+print(dfrutas[bool_duplicated])
+
+# El método .drop_duplicates() elimina los duplicados del DataFrame
+df_without_duplicates = dfrutas.drop_duplicates(subset="CANTIDAD", keep="first")
+print("\nDataFrame después de eliminar duplicados en 'CANTIDAD':")
+print(df_without_duplicates)
+
+# El método .nsmallest() nos devuelve las n filas con menor valor de la columna que indiquemos por parámetro
+print("\nLas 3 observaciones con menor precio:")
+print(dfrutas.nsmallest(3, "PRECIO"))
+
+# El método .nlargest() nos devuelve las n filas con mayor valor de la columna que indiquemos por parámetro
+print("\nLas 5 observaciones con mayor cantidad:")
+print(dfrutas.nlargest(5, "CANTIDAD"))
+
+# El método .dtypes nos indica de qué tipo es cada columna del DataFrame
+print("\nTipos de datos de cada columna:")
+print(dfrutas.dtypes)
