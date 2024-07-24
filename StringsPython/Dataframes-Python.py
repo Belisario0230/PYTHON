@@ -325,3 +325,51 @@ print(dfrutas.nlargest(5, "CANTIDAD"))
 # El método .dtypes nos indica de qué tipo es cada columna del DataFrame
 print("\nTipos de datos de cada columna:")
 print(dfrutas.dtypes)
+
+#Bucles y Dataframes inicio#
+d = {"name": ["Juan Gabriel", "María", "Ricardo"],
+     "surname": ["Gomila", "Santos", "Alberich"],
+     "gender": ["m", "f", "m"]}
+
+df = pd.DataFrame(d)
+df
+
+#Usamos .iterrows() para obtener el índice de cada fila junto al contenido de 
+# cada una:
+for i, j in df.iterrows():
+  print("Índice de la fila: {},\n\nContenido de la fila:\n{}".format(i, j), end = "\n\n\n")
+
+#Usamos .itertuples() para obtener una tupla con toda la información 
+# de cada fila:#
+for i in df.itertuples():
+  print("Contenido de la fila:\n{}".format(i), end = "\n\n")
+
+#Para iterar sobre las columnas de un dataframe,creamos una lista de las 
+# columnas del dataframe y luego iterarmos sobre esa lista para obtener la información de esas columnas
+#usamos el métood .iteritems()#
+columns = list(df)
+print(columns)
+
+for c in columns:
+  print("Columna {}:\n{}".format(c, df[c]), end = "\n\n")
+
+#Usamos .iteritems() para obtener el nombre de cada columna junto al contenido 
+# de cada una:#
+for i, j in df.items():
+  print("Nombre de la columna: {},\n\nContenido de la columna:\n{}".format(i, j), end = "\n\n\n")
+
+#DATAFRAMES APARIR ARCHIVO CSV local# 
+# direccion url pagina kaggle : https://www.kaggle.com/datasets?fileType=csv #
+import pandas as pd
+simpsons_df = pd.read_csv("DataFrames\characterssimpsons.csv")
+simpsons_df.head()
+print(simpsons_df.head)
+
+simpsons_df.tail()
+print(simpsons_df.tail)
+
+#DATAFRAMES APARIR URL#
+letters_freq_df = pd.read_csv("https://people.sc.fsu.edu/~jburkardt/data/csv/letter_frequency.csv")
+letters_freq_df.columns = ["Letra", "Frecuencia", "Porcentaje"]
+print(letters_freq_df)
+
