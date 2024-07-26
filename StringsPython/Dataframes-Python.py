@@ -358,10 +358,10 @@ for c in columns:
 for i, j in df.items():
   print("Nombre de la columna: {},\n\nContenido de la columna:\n{}".format(i, j), end = "\n\n\n")
 
-#DATAFRAMES APARIR ARCHIVO CSV local# 
+#CARGA DE ARCHIVOS APARIR ARCHIVO CSV local# 
 # direccion url pagina kaggle : https://www.kaggle.com/datasets?fileType=csv #
 import pandas as pd
-simpsons_df = pd.read_csv("DataFrames\characterssimpsons.csv")
+simpsons_df = pd.read_csv("CargaArchivosPython\ArchivosCSV\characterssimpsons.csv")
 simpsons_df.head()
 print(simpsons_df.head)
 
@@ -373,3 +373,338 @@ letters_freq_df = pd.read_csv("https://people.sc.fsu.edu/~jburkardt/data/csv/let
 letters_freq_df.columns = ["Letra", "Frecuencia", "Porcentaje"]
 print(letters_freq_df)
 
+#CRGA DE ARCHIVOS APARTIR DE GOOGLE COLAB#
+#from google.colab import drive
+#drive.mount('/content/drive')
+
+#simpsons_df = pd.read_csv("/content/drive/MyDrive/python-basico/datasets/characters-simpsons.csv")
+#simpsons_df.head()
+
+#CARGA ARCHIVOS MEDIANTE UN JSON EN GOOGLE COLAB#
+#import pandas as pd
+#quiz_index = pd.read_json("/content/drive/MyDrive/python-basico/datasets/json_index_example.json",
+#                          orient = "index")
+#quiz_index.head()
+
+#CARGAR ARCHIVO JSON FORMA LOCAL SU COMPUTADOR#
+print("CARGAR ARCHIVO JSON FORMA LOCAL SU COMPUTADOR")
+import pandas as pd
+quiz_index = pd.read_json("CargaArchivosPython\ArchivosJSON\json_index_example.json",
+                          orient = "index")
+quiz_index.head()
+print(quiz_index.head)
+quiz_index = df.shape
+print(df.shape) 
+
+#El parámetro orient
+#En el caso de archivos json, podría darse que no tuvieran la misma configuración
+#  que nuestro ejemplo, json_index_example.json cuya orientación se corresponde con index.
+
+#El parámetro orient del método .read_json() admite otras opciones como columns 
+# o values.
+
+#Veamos ambos casos con los ficheros json_columns_example.json y
+# json_values_example.json, respectivamente.
+
+print("Orientación con index")
+# Orientación con index
+import pandas as pd
+quiz_index = pd.read_json("CargaArchivosPython\ArchivosJSON\json_index_example.json",
+                          orient = "index")
+quiz_index.head()
+print(quiz_index)
+
+print("Orientación con columns")
+# Orientación con columns
+quiz_columns = pd.read_json("CargaArchivosPython\ArchivosJSON\json_columns_example.json",
+                    orient = "columns")
+quiz_columns.head()
+print(quiz_columns)
+
+print("Orientación con Values")
+# Orientación con values
+quiz_values = pd.read_json("CargaArchivosPython\ArchivosJSON\json_values_example.json",
+                           orient = "values")
+quiz_values.head()
+print(quiz_values)
+
+#Descarga de un JSON desde una URL#
+import pandas as pd
+from_url = pd.read_json("https://api.exchangerate-api.com/v4/latest/USD")
+from_url.head()
+print(from_url.head())
+
+#DATOS FALTANTES METODOS(ISNOTNULL - NOTNULL#
+
+# Nos devuelve True allí donde hay un dato faltante
+simpsons_df.isnull().head()
+print(simpsons_df.isnull())
+
+# Nos devuelve False allí donde hay un dato faltante
+simpsons_df.notnull().head()
+print(simpsons_df.notnull())
+
+#Existen muchas técnicas para tratar con valores faltantes: se sustituyen por 
+# la media, por la mediana, se elimina la observación, se interpolan... 
+# nosotros no entraremos en detalle en ese aspecto. Simplemente veremos los 
+# métodos de Python que podemos utilizar para tratar con valores faltantes:
+
+#.fillna()
+#.replace()
+#.interpolate()
+#.dropna()
+
+#El método .fillna() sustituye los valores faltantes por el valor que 
+#indiquemos por parámetro
+
+# Necesitamos la librería numpy para crear un dataframe con valores NaN
+print("Aqui creamos el DataFrame")
+import numpy as np
+data = {"Primer lanzamiento": [100, 86, np.nan, 75, 97],
+        "Segundo lanzamiento": [80, np.nan, 63, 81, 88],
+        "Tercer lanzamiento": [93, 89, 92, 97, np.nan]
+        }
+
+points_df = pd.DataFrame(data, index = ["Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4", "Jugador 5"])
+print(points_df)
+
+# Sustituimos todos los NaN por 0 puntos
+print("Aqui Sustituimos todos los NaN por 0 punto utilizamos metodo FILLNA ")
+points_df.fillna(0)
+print(points_df.fillna(0))
+
+#Para sustituir valores faltantes con el método .replace() lo hacemos del 
+#siguiente modo: primero pasamos por parámetro el valor que queremos sustituir ejemplo los NaN por nan se reemplaza o asi se indica 
+#y luego, el valor por el cual queremos sustituirlo en eset caso es 100000000 como ejemplo.
+
+print("Aqui Sustituimos utlizando metodo REPLACE ")
+points_df = pd.DataFrame(data, index = ["Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4", "Jugador 5"])
+points_df.replace(np.nan, 1000000)
+print(points_df.replace(np.nan,1000000))
+
+#Si usamos el método .interpolate(), sustituiremos los valores NaN por valores 
+#interpolados. Este método consta de muchos parámetros para elegir el 
+#método (que por defecto es linear) por el cual llevar a cabo la interpolación se puede refereir a uno de lso casos a promediar
+print("Aqui Sustituimos utilizando metodo INTERPOLATE ")
+points_df = pd.DataFrame(data, index = ["Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4", "Jugador 5"])
+points_df.interpolate()
+print(points_df.interpolate())
+
+#ejemplo del metodo INTERPOLATE #
+import pandas as pd
+import numpy as np
+
+# Crear un DataFrame con valores NaN
+data = {'A': [1, np.nan, 3, np.nan, 5],
+        'B': [np.nan, 2, np.nan, 4, 5]}
+df = pd.DataFrame(data)
+
+print("DataFrame original:")
+print(df)
+
+# Interpolar los valores NaN utilizando el método 'linear'
+df_interpolated = df.interpolate(method='linear')
+
+print("\nDataFrame con valores interpolados:")
+print(df_interpolated)
+
+# El método .dropna() elimina las filas que contienen valores faltantes.
+print("Aqui ELIMINAMOS. utilizamos metodo DROPNA")
+points_df = pd.DataFrame(data, index = ["Jugador 1", "Jugador 2", "Jugador 3", "Jugador 4", "Jugador 5"])
+points_df.dropna()
+print(points_df.dropna())
+print("")
+print("")
+
+#FILTRANDO DATAFRAMES#
+#Mostramos las observaciones con porcentaje mayor a 5
+print("FILTRANDO DATAFRAMES")
+letters_freq_df[letters_freq_df["Porcentaje"] > 5]
+print(letters_freq_df[letters_freq_df["Porcentaje"] > 5])
+
+# Mostramos las observaciones con frecuencia menor o igual a la de la letra S
+print("Mostramos las observaciones con frecuencia menor o igual a la de la letra S")
+freq_S = letters_freq_df.loc[18, "Frecuencia"]
+letters_freq_df[letters_freq_df["Frecuencia"] <= freq_S]
+print(letters_freq_df[letters_freq_df["Frecuencia"] <= freq_S])
+
+#El método .query() nos puede ser útil para este cometido, pero funciona 
+#únicamente cuando los valores de la columna no contienen espacios en blanco.
+# Mostramos aquellas observaciones cuyo porcentaje es mayor a 5
+print("Metodo Query solo funciona sin espacios en blanco 'Porcentaje > 5'")
+letters_freq_df.query('Porcentaje > 5')
+print(letters_freq_df.query('Porcentaje > 5'))
+
+# Mostramos aquellas observaciones cuyo porcentaje es mayor a 5 y menor o igual a 8
+print("Porcentaje > 5 and Porcentaje <= 8")
+letters_freq_df.query("Porcentaje > 5 and Porcentaje <= 8")
+print(letters_freq_df.query("Porcentaje > 5 and Porcentaje <= 8"))
+print("")
+
+#SERIES EN PANDAS( SON UNA ESPECIA DE COLUMNAS DE UN DF#
+#Serie. Una Serie de pandas es como una columna de un dataframe.
+#Podemos construir Series de pandas a partir de una lista unidimensional
+print("Mis series en PANDAS")
+a = [1, 2, 3, 4, 5]
+my_series = pd.Series(a)
+print(my_series)
+
+#para acceder a un valor especifico#
+print("para acceder a un valor especifico")
+print(my_series[3])
+
+#Cuando creamos una Serie, podemos modificar sus etiquetas con el 
+# parámetro index:#
+print("Cuando creamos una Serie, podemos modificar sus etiquetas con el parámetro index")
+my_series = pd.Series(a, index = ["a", "b", "c", "d", "e"])
+print(my_series)
+
+#Ahora, para acceder a una entrada en particular, lo haremos con las nuevas
+#  etiquetas:
+print("Ahora, para acceder a una entrada en particular, lo haremos con las nuevas etiquetas:")
+print(my_series["c"])
+
+#También podemos crear Series a partir de diccionarios. 
+#n este caso, las claves se corresponderán con las etiquetas de las 
+#series, y los valores del diccionario con los valores que toman las entradas de la Serie.
+print("CRear series apartir de DICCIONARIOS")
+videos = {"day1": 5, "day2": 9, "day3": 7, "day4": 6, "day5": 8}
+my_series = pd.Series(videos)
+print(my_series)
+
+#Para convertir una Serie en un DataFrame en Pandas, puedes utilizar 
+# el método to_frame(). Aquí tienes un ejemplo:#
+import pandas as pd
+
+# Crear una Serie de ejemplo
+notas = pd.Series([5.7, 8.5, 9.1, 5.5, 8.2, 9.0],
+                  index=["Juan", "Jenifer", "David", "Pablo", "Armando", "Magdalena"])
+print("Convertir una serie a DataFrame")
+# Convertir la Serie en un DataFrame
+df = notas.to_frame(name="Notas")
+
+print(df)
+
+#Para convertir una Serie en una lista, puedes usar el método tolist():#
+print("Convertir una serie a una lista")
+notas_lista = notas.tolist()
+print(notas_lista)
+print("")
+#MULTIINDICES EN PANDAS PARA ANALISIS DE DATOS EJEMPLO DATAFRAME#
+print("#MULTIINDICES EN PANDAS PARA ANALISIS DE DATOS EJEMPLO DATAFRAME#")
+import pandas as pd
+df = pd.read_csv("CargaArchivosPython\WordsByCharacteres\WordsByCharacter-220320-150428.csv")
+df.head()
+print("metodo HEAD me muestra la cabecera los PRIMEROS 5 del DF")
+print(df.head())
+print("metodo TAIL me muestra los ULTIMOS 5 del DF")
+print(df.tail())
+#MUESTRA NOMBRES DE LAS COLUMNAS DEL INDEX #
+print("MUESTRA NOMBRES DE LAS COLUMNAS DEL INDEX")
+print(df.index.names)
+#DEVUELVE UN ARRAY QUE REPRESENTA LOS VALORES DEL INDice del multiindex#
+print("#DEVUELVE UN ARRAY QUE REPRESENTA LOS VALORES DEL INDice del multiindex#")
+print(df.index.values)
+df.index.values
+
+#En esta línea de código, estás creando un MultiIndex en un DataFrame de Pandas. 
+# Permíteme explicarte paso a paso:
+#Primero, tienes un DataFrame llamado df.
+#Luego, utilizas el método .set_index(['Film', 'Chapter', 'Race', 'Character']) 
+# para establecer un índice compuesto por las columnas 'Film', 'Chapter', 'Race' 
+# y 'Character'.
+#Después, aplicas .sort_index() para ordenar el DataFrame según los valores 
+# de este nuevo MultiIndex.
+
+multiindex = df.set_index(['Film', 'Chapter', 'Race', 'Character']).sort_index()
+#aqui imprime los primeros 5 cabecera#
+print(multiindex.head())
+#aqui se imprime los ultimos 5 la cola#
+print(multiindex.tail())
+#aqui se obtiene una lista con los nombres 
+# de los niveles en ese MultiIndex#
+print(multiindex.index.names)
+# DEVUELVE UN ARRAY QUE REPRESENTA LOS VALORES DEL INDice del multiindex #
+multiindex.index.values
+print(multiindex.index.values)
+
+# Esta línea sirve para reiniciar los índices múltiples de Búsqueda
+#multiindex.reset_index()
+
+#La línea de código multiindex.loc[('The Fellowship Of The Ring',
+#  '01: Prologue'), :] selecciona todas las filas en el DataFrame con un 
+# índice jerárquico (MultiIndex) donde el nivel 'Film' coincide con 
+# 'The Fellowship Of The Ring' y el nivel 'Chapter' coincide con '01:
+#  Prologue'1. En otras palabras, estás filtrando las filas relacionadas 
+# con el primer capítulo de “La Comunidad del Anillo”. Si necesitas más 
+# ayuda o tienes más preguntas, no dudes en preguntar#
+multiindex.loc[('The Fellowship Of The Ring', '01: Prologue'), :]
+print(multiindex.loc[('The Fellowship Of The Ring', '01: Prologue'), :])
+
+#Tienes un DataFrame llamado multiindex con un MultiIndex (índice jerárquico) 
+# creado previamente1.
+#La parte ('The Fellowship Of The Ring', slice(None), 'Elf') se refiere a la 
+# selección de filas en el DataFrame. Aquí está desglosado:
+#'The Fellowship Of The Ring': Selecciona todas las filas donde el nivel 
+# 'Film' coincide con “The Fellowship Of The Ring”.
+#slice(None): Esto representa todas las posibles opciones para el nivel 
+# 'Chapter'. En otras palabras, selecciona todas las filas en ese nivel.
+#'Elf': Selecciona todas las filas donde el nivel 'Race' coincide con “Elf”.
+#Finalmente, .head(3) muestra las primeras tres filas resultantes de esta 
+# selección. #En resumen, estás filtrando las filas relacionadas con la película 
+# “The Fellowship Of The Ring” y el grupo de personajes “Elf”. 
+# Si necesitas más ayuda o tienes más preguntas, no dudes en preguntar.#
+
+multiindex.loc[('The Fellowship Of The Ring', slice(None), 'Elf'), : ].head(3)
+print(multiindex.loc[('The Fellowship Of The Ring', slice(None), 'Elf'), : ].head(3))
+
+#La línea de código multiindex.loc[('The Two Towers', slice(None), slice(None),
+#  ['Gandalf', 'Saruman']), :] selecciona todas las filas en el DataFrame con un 
+# índice jerárquico (MultiIndex) donde:
+#El nivel 'Film' coincide con 'The Two Towers'.
+#Los niveles restantes no tienen restricciones específicas 
+# (se utiliza slice(None) para indicar que no se filtran).
+#Además, se filtran las filas donde el nivel 'Character' 
+# coincide con 'Gandalf' o 'Saruman'#
+multiindex.loc[('The Two Towers', slice(None), slice(None), ['Gandalf', 'Saruman']), :]
+print(multiindex.loc[('The Two Towers', slice(None), slice(None), ['Gandalf', 'Saruman']), :])
+
+# Calcular la suma de las palabras habladas por Isildur
+total_palabras_isildur = multiindex.xs('Isildur', level='Character').sum()
+print(f"Isildur habla un total de {total_palabras_isildur} palabras en todas las películas.")
+# Otra forma de validar cauntas palabras habla Isuldur#
+print(multiindex.xs('Isildur', level = 'Character').sum())
+
+#Tienes un DataFrame llamado df.
+#Utilizas .pivot_table() para crear una tabla dinámica con las siguientes 
+# configuraciones: #index=['Race', 'Character']: Estableces los niveles del 
+# índice en función de las columnas 'Race' y 'Character'.
+#columns='Film': Las columnas de la tabla dinámica se basarán en los 
+# valores únicos de la columna 'Film'.
+#aggfunc='sum': Agregas los valores sumando los datos para cada combinación 
+# de índice y columna.
+#margins=True: Agregas filas y columnas adicionales para mostrar totales 
+# generales.
+#margins_name='All The Movies': Nombras la fila/columna de totales 
+# generales como “All The Movies”.
+#fill_value=0: Rellenas los valores faltantes con ceros.
+#.sort_index(): Ordenas la tabla dinámica según los niveles del índice.#
+pivoted = df.pivot_table(index = ['Race', 'Character'],
+                         columns = 'Film',
+                         aggfunc = 'sum',
+                         margins = True,
+                         margins_name = 'All The Movies',
+                         fill_value = 0).sort_index()
+
+order = [('Words', 'The Fellowship Of The Ring'),
+         ('Words', 'The Two Towers'),
+         ('Words', 'The Return Of The King'),
+         ('Words', 'All The Movies')]
+
+pivoted = pivoted.sort_values(by = ('Words', 'All The Movies'), ascending = False)
+
+pivoted = pivoted.reindex(order, axis = 1)
+
+print(pivoted)
+
+print(pivoted.loc['Hobbit'])
