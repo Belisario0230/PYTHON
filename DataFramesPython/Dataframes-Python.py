@@ -696,11 +696,19 @@ pivoted = df.pivot_table(index = ['Race', 'Character'],
                          margins_name = 'All The Movies',
                          fill_value = 0).sort_index()
 
+#Ordena el DataFrame pivoted según los valores de la columna 'Words' 
+# correspondientes a todas las películas (columna 'All The Movies') 
+# en orden descendente.
+#Reorganiza las columnas del DataFrame pivoted según el orden especificado 
+# en la lista order#
+print("")
+print("Ordena el DataFrame pivoted segun los valores de las clumnas words")
 order = [('Words', 'The Fellowship Of The Ring'),
          ('Words', 'The Two Towers'),
          ('Words', 'The Return Of The King'),
          ('Words', 'All The Movies')]
-
+print("")
+print("Ordena el DATAFRAME por valor de mayor a menor ascending")
 pivoted = pivoted.sort_values(by = ('Words', 'All The Movies'), ascending = False)
 
 pivoted = pivoted.reindex(order, axis = 1)
@@ -708,3 +716,7 @@ pivoted = pivoted.reindex(order, axis = 1)
 print(pivoted)
 
 print(pivoted.loc['Hobbit'])
+
+#Este DataFrame muestra las palabras habladas por cada personaje en las películas
+#  “The Fellowship Of The Ring”, “The Two Towers” y “The Return Of The King”, 
+# así como el total de todas las películas#
