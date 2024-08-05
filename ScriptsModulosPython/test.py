@@ -6,31 +6,31 @@
 
 from Tarea13 import Vector2D, Vector3D
 
-# Crear un vector 2D
+print("Crear un vector 2D")
 u = Vector2D(3, 4)
 print(u)
 print("El módulo del vector u es ||u|| =", u.module)
 
-# Realizar el producto escalar con un escalar
+print("Realizar el producto escalar con un escalar")
 u.scalar_prod(2)
 print("2u =", u)
 u.scalar_prod(1/2)
 
-# Crear otro vector 2D
+print("Crear otro vector 2D")
 v = Vector2D(-1, 2)
 print(v)
 
-# Sumar y restar vectores
+print("Sumar y restar vectores")
 print(u, "+", v, "=", Vector2D.sum(u, v))
 print(u, "-", v, "=", Vector2D.subtract(u, v))
 
-# Producto punto de dos vectores
+print("Producto punto de dos vectores")
 print("u·v =", u, "·", v, "=", Vector2D.dot_product(u, v))
 
-# Distancia entre dos vectores
+print("Distancia entre dos vectores")
 print("d(u, v) =", Vector2D.distance(u, v))
 
-# Extender un vector 2D a 3D
+print("Extender un vector 2D a 3D")
 u3d = u.extend_to_3D(5)
 print(u3d)
 
@@ -123,22 +123,38 @@ class Vector3D(Vector2D):
         return cls(0, 0, 1)
 
 # Pruebas (Yo quiero hacer mis pruebas locales porque es lo que mas voy a usar)
+from Tarea13 import Vector3D
+
+print("")
+print("")
+print("Ejercicio 10")
+print("Crea un vector")
 u = Vector3D(1, 0, -1)
 print(u)
 print("El módulo del vector u es ||u|| =", u.module)
+
+print("Realizar el producto escalar con un escalar")
 u.scalar_prod(-3)
 print("-3u =", u)
 u.scalar_prod(-1/3)
+
+print("Crear otro vector 3D")
 v = Vector3D(-3, 1, 2)
 print(v)
+
+print("Sumar y restar vectores")
 print(u, "+", v, "=", Vector3D.sum(u, v))
 print(u, "-", v, "=", Vector3D.subtract(u, v))
+
+print("Producto punto de dos vectores")
 print("u·v =", u, "·", v, "=", Vector3D.dot_product(u, v))
+
+print("Distancia entre dos vectores")
 print("d(u, v) =", Vector3D.distance(u, v))
+
+print("Vectores especiales")
 print(Vector3D.zero())
 print(Vector3D.horizontal())
 print(Vector3D.vertical())
 print(Vector3D.forward())
-
-
 
