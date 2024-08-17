@@ -169,3 +169,69 @@ plt.xlabel("Notas")
 plt.ylabel("Número alumnos")
 plt.title("Notas de los alumnos de una clase")
 plt.show()
+
+#### Pie Chart
+
+#Para hacer un gráfico de sectores, usamos el método `.pie()` del módulo `plt`.
+
+#Algunos de los parámetros de este método son:
+
+#* `x`: array 1D o lista
+#* `labels`: para especificar las etiquetas
+#* `colors`: para cambiar los colores de los sectores. Si pasamos una lista, podemos asignar un color diferente a cada sector circular
+#* `autopct`: para editar el formato en que se muestra el porcentaje (1.0f redondea a entero, 0.1f redondea a 1 cifra decimal, 0.2f redondea a 2 cifras decimales, 0.3f redondea a 3 cifras decimales )
+#* `labeldistance`: para ajustar la distancia radial de las etiquetas
+#* `radius`: para modificar el radio del gráfico
+#* `startangle`: para cambiar el ángulo (en grados) con el que se empieza (por defecto es 0)
+#* `explode`: vector de distancias para indicar cómo de separado queremos que esté el sector correspondiente del resto.
+#* `shadow`: para añadir sombra a los sectores#
+
+#Grafico Pie Chart#
+#Para hacer un gráfico de sectores, usamos el método `.pie()` del módulo `plt`.
+options = ["Con Piña", "Sin Piña"]
+count = [20, 80]
+
+plt.pie(count, colors = ["#ff85b0", "#85ffac"], labels = options, autopct = "%0.3f%%")
+plt.title("¿Pizza con o sin piña?")
+plt.show()
+
+#Grafico Pie Chart Agregamos demas a este grafico startangle, explode, shadow #
+plt.pie(count, colors = ["#ff85b0", "#85ffac"], labels = options,
+        startangle = 90, explode = [0.2, 0], shadow = True)
+plt.title("¿Pizza con o sin piña?")
+plt.legend(title = "Opciones")
+plt.show()
+
+# Histogram
+
+#Para hacer un histograma, usamos el método `.hist()` del módulo `plt`.
+
+#Algunos de los parámetros de este método son:
+
+#* `x`: array o lista de observaciones
+#* `bins`: para especificar el tamaño de los intervalos
+#* `range`: para especificar el mínimo y el máximo de las bins.
+#* `histtype`: para indicar qué tipo de histograma queremos dibujar
+#* `align`: para configurar la alineación de las barras del histograma
+#* `orientation`: para modificar la orientación del histograma (vertical u horizontal)
+#* `color`: para modificar el color de las barras
+#* `edgecolor`: para modficar el color de contorno de las barras#
+
+# Histogram
+
+#Para hacer un histograma, usamos el método `.hist()` del módulo `plt`.
+data = np.random.randint(200, size = 100)
+
+plt.hist(data, bins = 10, range = (0, 200), color = "#ff85b0", edgecolor = "k")
+plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+np.random.seed(4)
+x = np.random.normal(0, 1, 100)  # Datos simulados
+fig, ax = plt.subplots()
+ax.hist(x, bins=10)  # Puedes ajustar el número de clases (bins) según tus necesidades
+plt.xlabel("Valores")
+plt.ylabel("Frecuencia")
+plt.title("Histograma de Datos")
+plt.show()
