@@ -1,0 +1,5 @@
+"Dios gracias por lo aprendido en este día, hoy vamos a cargar un archivo TXT"
+Hola mundo este es un fuchero de varias lineas
+Hola mi nombe es Belisario Buitrago Lievano
+Estoy aprendiendo a usar un fichero en python
+Me gusta python como programa de programacion

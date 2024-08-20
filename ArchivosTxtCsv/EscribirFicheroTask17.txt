@@ -1,0 +1,3 @@
+El usuario se llama beli buitrago
+La edad del usuario es 45
+El color favorito del usuario es el azul

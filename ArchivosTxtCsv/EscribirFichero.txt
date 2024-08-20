@@ -1,0 +1,2 @@
+Este es el primer archivo txt que escribimos
+ y lo estamos haciendo desde el notebook de Google Colab!
